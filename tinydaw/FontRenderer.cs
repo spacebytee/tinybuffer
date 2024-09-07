@@ -43,7 +43,6 @@ namespace tinybuffer
                         int bufferIndex = ((y - bitmapTop + row) * width + (startX + bitmapLeft + col)) * 3;
                         if (bufferIndex >= 0 && bufferIndex < buffer.Length - 3)
                         {
-                            Console.WriteLine(pixelValue);
                             if (pixelValue == 255)
                             {
                                 buffer[bufferIndex] = r;

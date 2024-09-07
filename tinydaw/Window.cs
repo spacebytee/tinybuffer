@@ -16,13 +16,13 @@ namespace tinybuffer
         public int width;
         public int height;
         private bool resizable;
-        internal byte[] buffer;
+        protected byte[] buffer;
         public nint sdlWindow;
         public nint renderer;
         private byte defaultR = 255;
         private byte defaultG = 255;
         private byte defaultB = 255;
-        internal bool requiresRedraw = true;
+        protected bool requiresRedraw = true;
         private bool running = true;
         private bool vsync;
         private bool accelerated;

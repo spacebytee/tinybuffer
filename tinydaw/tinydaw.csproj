@@ -16,11 +16,13 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/spacebytee/tinybuffer/tree/master</PackageProjectUrl>
     <RepositoryUrl>https://github.com/spacebytee/tinybuffer/tree/master</RepositoryUrl>
+    <FileVersion>1.0.2</FileVersion>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Program.cs" />
-    <Compile Remove="TinyDaw.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +31,6 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="Program.cs" />
-    <None Include="TinyDaw.cs" />
   </ItemGroup>
 
   <ItemGroup>
