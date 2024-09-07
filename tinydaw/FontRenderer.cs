@@ -39,7 +39,7 @@ namespace tinybuffer
                 {
                     for (int col = 0; col < bitmap.width; col++)
                     {
-                        byte pixelValue = (byte) (bitmap.buffer[row * bitmap.pitch + col]);
+                        byte pixelValue = (byte)(bitmap.buffer[row * bitmap.pitch + col]);
                         int bufferIndex = ((y - bitmapTop + row) * width + (startX + bitmapLeft + col)) * 3;
                         if (bufferIndex >= 0 && bufferIndex < buffer.Length - 3)
                         {
@@ -48,7 +48,8 @@ namespace tinybuffer
                                 buffer[bufferIndex] = r;
                                 buffer[bufferIndex + 1] = g;
                                 buffer[bufferIndex + 2] = b;
-                            } else if (pixelValue != 0)
+                            }
+                            else if (pixelValue != 0)
                             {
                                 float alpha = pixelValue / 255.0f;
                                 float invAlpha = 1.0f - alpha;
@@ -62,7 +63,7 @@ namespace tinybuffer
                                 buffer[bufferIndex + 1] = blendedG;
                                 buffer[bufferIndex + 2] = blendedB;
                             }
-                            
+
                         }
                     }
                 }
@@ -70,7 +71,38 @@ namespace tinybuffer
                 startX += (int)(fontface->glyph->advance.x >> 6);
             }
         }
+        public int GetTextWidth(string text, int size)
+        {
+            FT.FT_Set_Char_Size(fontface, 0, size * 64, 72, 0);
+            int totalWidth = 0;
 
+            foreach (char c in text)
+            {
+                FT.FT_Load_Char(fontface, c, FT_LOAD.FT_LOAD_RENDER);
+                totalWidth += (int)(fontface->glyph->advance.x >> 6);
+            }
+
+            return totalWidth;
+        }
+
+        public int GetTextHeight(string text, int size)
+        {
+            FT.FT_Set_Char_Size(fontface, 0, size * 64, 72, 0);
+            int maxHeight = 0;
+
+            foreach (char c in text)
+            {
+                FT.FT_Load_Char(fontface, c, FT_LOAD.FT_LOAD_RENDER);
+
+                int glyphHeight = (int)fontface->glyph->bitmap.rows;
+                if (glyphHeight > maxHeight)
+                {
+                    maxHeight = glyphHeight;
+                }
+            }
+
+            return maxHeight;
+        }
         public void Dispose()
         {
             FT.FT_Done_Face(fontface);
