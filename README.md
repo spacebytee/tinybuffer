@@ -1,4 +1,4 @@
-# tinydaw
+# tinybuffer
 
 .NET library to create a window and allow easy access to the pixel buffer, backed by SDL. Also provides a utility to draw text. 
 
