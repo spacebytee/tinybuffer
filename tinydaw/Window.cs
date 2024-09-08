@@ -26,6 +26,7 @@ namespace tinybuffer
         private bool running = true;
         private bool vsync;
         private bool accelerated;
+        protected bool drew = false;
         public Window(string name, int width, int height, bool resizable, bool vsync, bool accelerated)
         {
             this.name = name;
@@ -51,7 +52,8 @@ namespace tinybuffer
         }
         private void PollEvents()
         {
-            while (SDL.SDL_PollEvent(out SDL.SDL_Event e) == 1)
+            SDL_Event e;
+            while (SDL_WaitEvent(out e) != 0)
             {
                 switch (e.type)
                 {
@@ -88,10 +90,14 @@ namespace tinybuffer
         }
         private void PostRender()
         {
-            SDL.SDL_UpdateTexture(texture, IntPtr.Zero, pixelPtr, width * 3);
-            SDL.SDL_RenderCopy(renderer, texture, IntPtr.Zero, IntPtr.Zero);
-            SDL.SDL_RenderPresent(renderer);
-            requiresRedraw = false;
+            if (drew)
+            {
+                SDL.SDL_UpdateTexture(texture, IntPtr.Zero, pixelPtr, width * 3);
+                SDL.SDL_RenderCopy(renderer, texture, IntPtr.Zero, IntPtr.Zero);
+                SDL.SDL_RenderPresent(renderer);
+                requiresRedraw = false;
+                drew = false;
+            }
         }
         public void SetDefaults(byte r, byte g, byte b)
         {
